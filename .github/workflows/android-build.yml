@@ -14,7 +14,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip zip unzip openjdk-17-jdk libncurses5
+          sudo apt install -y python3-pip zip unzip openjdk-17-jdk libncurses5-dev
 
       - name: Install Python dependencies
         run: |

@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04   # ✅ Stable runner for Buildozer
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
@@ -27,8 +27,8 @@ jobs:
           rm -rf tmp tools.zip
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
-          yes | sdkmanager --licenses
-          yes | sdkmanager "platform-tools" "build-tools;36.0.0" "platforms;android-33" "ndk;25.2.9519653"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "build-tools;36.0.0" "platforms;android-33" "ndk;25.2.9519653"
 
       - name: Install Python dependencies
         run: |
@@ -47,7 +47,7 @@ jobs:
         run: |
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
-          set -e   # ✅ fail if any command fails
+          set -e
           buildozer -v android debug
           echo ">>> Listing all generated APK files:"
           find . -name "*.apk" || echo "No APK found"
